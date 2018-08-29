@@ -38,12 +38,11 @@ void setup()
     wifiMulti.addAP(ssid, pwd);
     while (wifiMulti.run() != WL_CONNECTED)
     {
-        Serial.println("Wifi connecting...");
-        drawText("Wifi connecting...");
+        drawText("NETWORK\nCONNECTING");
         delay(500);
     }
     Serial.println("Wifi connecting...OK!");
-    drawText("Wifi connecting...OK!");
+    drawText("NETWORK\nOK");
 }
 
 /* ----------------------------------------------------
@@ -60,15 +59,15 @@ void loop()
         Serial.println("Button Pressed");
 
         // 
-        if (requestGetHttp("http://49.212.141.66/DENSAN_home/DENSAN_home.php"))
+        if (requestGetHttp("http://49.212.141.66/"))
         {
+            drawText("SUCCESS!");
             Serial.println("Success!");
-            drawText("Success!");
         }
         else
         {
+            drawText("FAILED!");
             Serial.println("Failed: HTTP GET Request");
-            drawText("Failed!");
         }
 
         delay(10);      // チャタリング防止
@@ -85,7 +84,6 @@ void drawText(String text)
     display.setTextSize(2);
     display.setTextColor(WHITE);
     display.setCursor(0,0);
-//    display.setTextColor(BLACK, WHITE);
     
     display.println(text);
     display.display();
